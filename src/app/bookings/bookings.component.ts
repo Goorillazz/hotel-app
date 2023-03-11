@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Booking } from '../booking';
+import { Bookings } from '../mock-bookings';
 
 @Component({
   selector: 'app-bookings',
@@ -7,11 +8,5 @@ import { Booking } from '../booking';
   styleUrls: ['./bookings.component.css'],
 })
 export class BookingsComponent {
-  booking: Booking = {
-    id: 1,
-    name: 'Christian',
-    roomNumber: 100,
-    startDate: new Date(),
-    endDate: new Date('2021-07-21'),
-  };
+  bookings = Bookings;
 }

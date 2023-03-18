@@ -9,4 +9,9 @@ import { Bookings } from '../mock-bookings';
 })
 export class BookingsComponent {
   bookings = Bookings;
+
+  deleteBooking(booking: Booking): void {
+    var index = Bookings.indexOf(booking);
+    Bookings.splice(index, 1);
+  }
 }

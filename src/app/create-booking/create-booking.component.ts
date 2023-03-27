@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Booking } from '../booking';
-import { Bookings } from '../mock-bookings';
 import { Router, ActivatedRoute } from '@angular/router';
+import { BookingService } from '../booking.service';
 
 @Component({
   selector: 'app-create-booking',
@@ -9,7 +9,11 @@ import { Router, ActivatedRoute } from '@angular/router';
   styleUrls: ['./create-booking.component.css'],
 })
 export class CreateBookingComponent {
-  constructor(private router: Router, private activatedRoute: ActivatedRoute) {}
+  constructor(
+    private router: Router,
+    private activatedRoute: ActivatedRoute,
+    private bookingService: BookingService
+  ) {}
 
   booking: Booking = {
     id: 100,
@@ -32,7 +36,7 @@ export class CreateBookingComponent {
   ngOnInit() {
     if (this.router.url != '/create') {
       var id = Number(this.activatedRoute.snapshot.paramMap.get('id'));
-      var bookingById = Bookings.find((x) => x.id == id)!;
+      var bookingById = this.bookingService.getBookingById(id);
       this.booking = bookingById;
     }
   }
@@ -40,10 +44,10 @@ export class CreateBookingComponent {
   save(): void {
     console.log('Make Booking');
 
-    var bookingById = Bookings.find((x) => x.id == this.booking.id);
+    var bookingById = this.bookingService.getBookingById(this.booking.id);
 
     if (bookingById == null || bookingById == undefined) {
-      Bookings.push(this.booking);
+      this.bookingService.addBooking(this.booking);
     } else {
       bookingById = this.booking;
     }

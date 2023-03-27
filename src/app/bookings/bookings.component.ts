@@ -13,7 +13,10 @@ export class BookingsComponent {
   constructor(private bookingService: BookingService) {}
 
   ngOnInit(): void {
-    this.bookings = this.bookingService.getBookings();
+    this.bookingService.getBookings().subscribe((result) => {
+      console.log(result);
+      this.bookings = result;
+    });
   }
 
   deleteBooking(booking: Booking): void {
